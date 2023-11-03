@@ -1,6 +1,7 @@
 from pakuri import Pakuri
 
-class Pakudex(Pakuri):
+
+class Pakudex:
 
     def __init__(self, capacity=20):
         self.count = 0
@@ -19,14 +20,19 @@ class Pakudex(Pakuri):
         else:
             return self.dex
 
-    def get_stats(self, species):
-        return None
+    @staticmethod
+    def get_stats(species):
+        stat_list = [species.attack, species.defense, species.speed]
+        return True, stat_list
 
     def sort_pakuri(self):
         self.dex.append(Pakuri)
 
     def add_pakuri(self, species):
-        print()
+        new_species = Pakuri(species)
+        self.dex.append(new_species)
+        self.count += 1
 
-    def evolve_species(self, species):
-        species.evolve
+    @staticmethod
+    def evolve_species(species):
+        species.evolve()
