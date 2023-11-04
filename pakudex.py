@@ -18,21 +18,27 @@ class Pakudex:
         if len(self.dex) == 0:
             return None
         else:
-            return self.dex
+            string_list = []
+            for species in self.dex:
+                string_list.append(species.name)
+            return string_list
 
-    @staticmethod
-    def get_stats(species):
-        stat_list = [species.attack, species.defense, species.speed]
-        return True, stat_list
+    def get_stats(self, species):
+        for pakuri in self.dex:
+            if pakuri.name == species:
+                stat_list = [pakuri.attack, pakuri.defense, pakuri.speed]
+                return stat_list
 
     def sort_pakuri(self):
-        self.dex.append(Pakuri)
+        self.dex = sorted(self.dex, key=lambda x: x.name)
 
     def add_pakuri(self, species):
-        new_species = Pakuri(species)
-        self.dex.append(new_species)
+        self.dex.append(Pakuri(species))
         self.count += 1
 
-    @staticmethod
-    def evolve_species(species):
-        species.evolve()
+    def evolve_species(self, species):
+        for pakuri in self.dex:
+            if pakuri.name == species:
+                pakuri.evolve()
+                return True
+        return False
