@@ -33,8 +33,12 @@ class Pakudex:
         self.dex = sorted(self.dex, key=lambda x: x.name)
 
     def add_pakuri(self, species):
+        for pakuri in self.dex:
+            if pakuri.name == species:
+                return False
         self.dex.append(Pakuri(species))
         self.count += 1
+        return True
 
     def evolve_species(self, species):
         for pakuri in self.dex:

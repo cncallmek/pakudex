@@ -57,21 +57,19 @@ if __name__ == "__main__":
                 print("Error: No such Pakuri!")
 
         elif user_input == 3:
-            full = False
-            if my_pakudex.get_size() == my_pakudex.capacity:
-                print("Error: Pakudex is full!")
-                full = True
-            if not full:
+            try:
+                if my_pakudex.get_size() == my_pakudex.capacity:
+                    raise TypeError
                 pakuri = input("Enter the name of the species to add: ")
-                duplicate = False
-                for species in my_pakudex.dex:
-                    if species.name == pakuri:
-                        duplicate = True
-                if not duplicate:
-                    my_pakudex.add_pakuri(pakuri)
-                    print(f"Pakuri species {pakuri} successfully added!\n")
-                elif duplicate:
-                    print("Error: Pakudex already contains this species!")
+                success = my_pakudex.add_pakuri(pakuri)
+                if success:
+                    print(f"Pakuri species {pakuri} successfully added!")
+                else:
+                    raise AttributeError
+            except TypeError:
+                print("Error: Pakudex is full!")
+            except AttributeError:
+                print("Error: Pakudex already contains this species!")
 
         elif user_input == 4:
             pakuri = input("Enter the name of the species to evolve: ")
